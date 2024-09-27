@@ -7,33 +7,31 @@ class Program
 {
     static void Main(string[] args)
     {
-        using (var ctx = new FilmsDbContext())
-        {
-            
-            //Chargement de la catégorie Action
-            Categorie categorieAction = ctx.Categories
-                .Include(c => c.Films)
-                .ThenInclude(f => f.Avis)
-                .First(c => c.Nom == "Action");
-            Console.WriteLine("Categorie : " + categorieAction.Nom);
-            Console.WriteLine("Films : ");
-            //Chargement des films de la catégorie Action.
-            foreach (var film in categorieAction.Films)
-            {
-                Console.WriteLine(film.Nom);
-                //Console.WriteLine(film.Avis.GetEnumerator
-                foreach (var avis in film.Avis)
-                {
-                    Console.WriteLine(avis.Commentaire);
-                }
-            }
-            
-            //Sauvegarde du ctx => Application de la modification dans la BD
-            int nbchanges = ctx.SaveChanges();
-            
-            Console.WriteLine("Nombre d'enregistrement modifiés ou ajoutés : " + nbchanges);
+        //Afficher tous les films
+        //Exo2Q1();
+        
+        //Afficher les emails de tous les utilisateurs
+        Exo2Q2();
+    }
 
-            
+    private static void Exo2Q2()
+    {
+        var ctx = new FilmsDbContext();
+        Console.WriteLine("Les emails des utilisateurs : ");
+        foreach (var utilisateur in ctx.Utilisateurs )
+        {
+            Console.WriteLine(utilisateur.Email);
         }
     }
+
+    private static void Exo2Q1()
+    {
+        var ctx = new FilmsDbContext();
+        foreach (var film in ctx.Films)
+        {
+            Console.WriteLine(film.ToString());
+        }
+    }
+    
+    
 }
