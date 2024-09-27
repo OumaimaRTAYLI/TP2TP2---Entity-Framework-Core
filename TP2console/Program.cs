@@ -9,26 +9,23 @@ class Program
     {
         using (var ctx = new FilmsDbContext())
         {
-            //Désactivation du tracking => Aucun chanegement dans la base ne sera effectué
-            //ctx.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
-
-            //Requête SELECT
-            Film titanic = ctx.Films.AsNoTracking().First(f => f.Nom.Contains("Titanic"));
-            
-            //Modification de l'entité (dans le contexte seulement)
-            titanic.Description = "Un bateau a échoué. Date : " + DateTime.Now;
             
             //Chargement de la catégorie Action
-            Categorie categorieAction = ctx.Categories.First(c => c.Nom == "Action");
+            Categorie categorieAction = ctx.Categories
+                .Include(c => c.Films)
+                .ThenInclude(f => f.Avis)
+                .First(c => c.Nom == "Action");
             Console.WriteLine("Categorie : " + categorieAction.Nom);
-
-            ctx.Entry(categorieAction).Collection(c => c.Films).Load();
-            
             Console.WriteLine("Films : ");
             //Chargement des films de la catégorie Action.
             foreach (var film in categorieAction.Films)
             {
                 Console.WriteLine(film.Nom);
+//                Console.WriteLine(film.Avis.GetEnumerator
+                foreach (var avis in film.Avis)
+                {
+                    Console.WriteLine(avis.Commentaire);
+                }
             }
             
             //Sauvegarde du ctx => Application de la modification dans la BD
