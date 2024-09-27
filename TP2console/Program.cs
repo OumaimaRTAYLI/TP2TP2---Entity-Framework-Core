@@ -11,7 +11,23 @@ class Program
         //Exo2Q1();
         
         //Afficher les emails de tous les utilisateurs
-        Exo2Q2();
+        //Exo2Q2();
+        
+        //Afficher les utlisateurs triés par login croissant 
+        Exo2Q3();
+        
+        //Afficher les noms et id des films de la catégorie « Action »
+    }
+
+    private static void Exo2Q3()
+    {
+        var ctx = new FilmsDbContext();
+        var sortedUsers = ctx.Utilisateurs.OrderBy(o => o.Login);
+        foreach (var user in sortedUsers)
+        {
+            Console.WriteLine(user.Login);
+        }
+
     }
 
     private static void Exo2Q2()
