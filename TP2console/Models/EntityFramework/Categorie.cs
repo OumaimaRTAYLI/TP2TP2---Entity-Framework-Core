@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace TP2console.Models.EntityFramework;
 
@@ -19,7 +20,22 @@ public partial class Categorie
 
     [Column("description")]
     public string? Description { get; set; }
-
-    [InverseProperty("IdcategorieNavigation")]
-    public virtual ICollection<Film> Films { get; set; } = new List<Film>();
+    
+    
+    private ILazyLoader _lazyLoader;
+    private ICollection<Film> films;
+    public Categorie(ILazyLoader lazyLoader)
+    {
+        _lazyLoader = lazyLoader;
+    }
+    
+    [InverseProperty(nameof(Film.IdcategorieNavigation))]
+    public virtual ICollection<Film> Films
+    {
+        get
+        {
+            return _lazyLoader.Load(this, ref films);
+        }
+        set { films = value; }
+    }
 }
