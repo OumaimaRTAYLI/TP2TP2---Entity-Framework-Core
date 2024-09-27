@@ -40,11 +40,29 @@ class Program
         // AddUser();
         
         //Exo3Q2 : Modifier un film
-        modifyMovie();
+        //modifyMovie();
         
         //Exo3Q3 : Supprimer un film
-        suppFilm();
+        //suppFilm();
+        
+        //Exo3Q4 : Ajouter un avis et note
+        addAvis();
 
+    }
+
+    private static void addAvis()
+    {
+        var ctx = new FilmsDbContext();
+        var avis = new Avi();
+
+        var film = ctx.Films.First();
+        var user = ctx.Utilisateurs.First(u => u.Login == "oumaima");
+        avis.Idfilm = film.Idfilm;
+        avis.Idutilisateur = user.Idutilisateur;
+        avis.Commentaire = "Bon film !";
+        avis.Note = 8;
+        ctx.Avis.Add(avis);
+        ctx.SaveChanges();
     }
 
     private static void suppFilm()
