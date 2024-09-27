@@ -26,8 +26,21 @@ class Program
         //Exo2Q6();
         
         //Rechercher tous les films qui commencent par « le »
-        Exo2Q7();
+        //Exo2Q7();
+        
+        //Afficher la note moyenne du film « Pulp Fiction »
+        Exo2Q8();
 
+    }
+
+    private static void Exo2Q8()
+    {
+        var ctx = new FilmsDbContext();
+
+        var avgPulp = ctx.Films.Where(f => f.Nom.ToLower() == "pulp fiction").First()
+            .Avis.Average(a => a.Note);
+
+        Console.WriteLine(avgPulp);
     }
 
     private static void Exo2Q7()
