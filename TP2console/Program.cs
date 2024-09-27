@@ -17,7 +17,18 @@ class Program
         Exo2Q3();
         
         //Afficher les noms et id des films de la catégorie « Action »
-        Exo2Q4();
+        //Exo2Q4();
+        
+        //Afficher le nombre de catégories
+        Exo2Q5();
+    }
+
+    private static void Exo2Q5()
+    {
+        var ctx = new FilmsDbContext();
+        var category = ctx.Categories.Count();
+        Console.WriteLine($"Category: {category}");
+        
     }
 
     private static void Exo2Q4()
