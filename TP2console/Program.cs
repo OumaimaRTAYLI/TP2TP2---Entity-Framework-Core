@@ -35,9 +35,26 @@ class Program
         //Exo2Q9();
         
         //Exercie 3
-        //Ajoutez-vous en tant qu’utilisateur
-        AddUser();
+        
+        //Exo3Q1 : Ajoutez-vous en tant qu’utilisateur
+        // AddUser();
+        
+        //Exo3Q2 : Modifier un film
+        
+        
+        modifyMovie();
 
+    }
+
+    private static void modifyMovie()
+    {
+        var ctx = new FilmsDbContext();
+        // L'armee des douze singes
+        var dramaCategory = ctx.Categories.Where(c => c.Nom.ToLower() == "drame").First();
+        var monkeyArmy = ctx.Films.Where(f => f.Nom.ToLower() == "l'armee des douze singes").First();
+        monkeyArmy.Description = "Nouvelle description";
+        monkeyArmy.Idcategorie = dramaCategory.Idcategorie;
+        ctx.SaveChanges();
     }
 
     private static void AddUser()
