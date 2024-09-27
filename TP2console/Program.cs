@@ -14,7 +14,7 @@ class Program
         //Exo2Q2();
         
         //Afficher les utlisateurs triés par login croissant 
-        Exo2Q3();
+        //Exo2Q3();
         
         //Afficher les noms et id des films de la catégorie « Action »
         //Exo2Q4();
@@ -23,7 +23,18 @@ class Program
         //Exo2Q5();
         
         //Afficher la note la plus basse dans la base
-        Exo2Q6();
+        //Exo2Q6();
+        
+        //Rechercher tous les films qui commencent par « le »
+        Exo2Q7();
+
+    }
+
+    private static void Exo2Q7()
+    {
+        var ctx = new FilmsDbContext();
+        var filmStartLe = ctx.Films.Where(f => f.Nom.StartsWith("Le"));
+        Console.WriteLine(filmStartLe.Count());
     }
 
     private static void Exo2Q6()
