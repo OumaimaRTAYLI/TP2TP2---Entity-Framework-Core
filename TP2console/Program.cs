@@ -32,7 +32,7 @@ class Program
         //Exo2Q8();
         
         //Afficher l’utilisateur qui a mis la meilleure note dans la base
-        //Exo2Q9();
+        Exo2Q9();
         
         //Exercie 3
         
@@ -46,8 +46,26 @@ class Program
         //suppFilm();
         
         //Exo3Q4 : Ajouter un avis et note
-        addAvis();
+        // addAvis();
+        
+        //Exo3Q5 : Ajouter 2 films dans la catégorie « Drame »
+        // addFilms();
 
+    }
+
+    private static void addFilms()
+    {
+        var ctx = new FilmsDbContext();
+        var film = new Film();
+        film.Nom = "nouveau film";
+        film.Description = "Nouvelle description";
+        film.Idcategorie = 6;
+        var film2 = new Film();
+        film2.Nom = "nouveau film2";
+        film2.Description = "Nouvelle description2";
+        film2.Idcategorie = 5;
+        ctx.Films.AddRange(film, film2);
+        
     }
 
     private static void addAvis()
@@ -105,12 +123,11 @@ class Program
     {
         var ctx = new FilmsDbContext();
 
-        var maxNote = (from a in ctx.Avis
+        var maxNoteUser = (from a in ctx.Avis
             join u in ctx.Utilisateurs
-                on a.Idutilisateur equals u.Idutilisateur
-            select a.Note).Max();
-        
-        Console.WriteLine(maxNote);
+                on a.Idutilisateur equals u.Idutilisateur orderby a.Note descending
+            select new {u.Idutilisateur, u.Login, a.Note}).First();
+        Console.WriteLine(maxNoteUser);
     }
 
     private static void Exo2Q8()
