@@ -21,10 +21,12 @@ class Program
             //Chargement de la catégorie Action
             Categorie categorieAction = ctx.Categories.First(c => c.Nom == "Action");
             Console.WriteLine("Categorie : " + categorieAction.Nom);
+
+            ctx.Entry(categorieAction).Collection(c => c.Films).Load();
+            
             Console.WriteLine("Films : ");
             //Chargement des films de la catégorie Action.
-            foreach (var film in ctx.Films.Where(f => f.IdcategorieNavigation.Nom ==
-                                                      categorieAction.Nom).ToList())
+            foreach (var film in categorieAction.Films)
             {
                 Console.WriteLine(film.Nom);
             }
