@@ -17,6 +17,18 @@ class Program
         Exo2Q3();
         
         //Afficher les noms et id des films de la catégorie « Action »
+        Exo2Q4();
+    }
+
+    private static void Exo2Q4()
+    {
+        var ctx = new FilmsDbContext();
+        var category = ctx.Categories.First(c => c.Nom == "Action");
+        var films = ctx.Films.Where(o => o.Idcategorie == category.Idcategorie);
+        foreach (var film in films)
+        {
+            Console.WriteLine(film.Idfilm + ":" + film.Nom);            
+        }
     }
 
     private static void Exo2Q3()
