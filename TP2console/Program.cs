@@ -32,7 +32,7 @@ class Program
         //Exo2Q8();
         
         //Afficher l’utilisateur qui a mis la meilleure note dans la base
-        Exo2Q9();
+        //Exo2Q9();
         
         //Exercie 3
         
@@ -49,22 +49,25 @@ class Program
         // addAvis();
         
         //Exo3Q5 : Ajouter 2 films dans la catégorie « Drame »
-        // addFilms();
+        addFilms();
 
     }
 
     private static void addFilms()
     {
         var ctx = new FilmsDbContext();
+        
+        var categorieDrame = ctx.Categories.First(c => c.Nom == "Drame");
         var film = new Film();
         film.Nom = "nouveau film";
         film.Description = "Nouvelle description";
-        film.Idcategorie = 6;
+        film.Idcategorie = categorieDrame.Idcategorie;
         var film2 = new Film();
         film2.Nom = "nouveau film2";
         film2.Description = "Nouvelle description2";
-        film2.Idcategorie = 5;
+        film2.Idcategorie = categorieDrame.Idcategorie;
         ctx.Films.AddRange(film, film2);
+        ctx.SaveChanges();
         
     }
 
