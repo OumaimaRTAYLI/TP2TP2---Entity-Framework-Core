@@ -40,10 +40,25 @@ class Program
         // AddUser();
         
         //Exo3Q2 : Modifier un film
-        
-        
         modifyMovie();
+        
+        //Exo3Q3 : Supprimer un film
+        suppFilm();
 
+    }
+
+    private static void suppFilm()
+    {
+        var ctx = new FilmsDbContext();
+        
+        var filmSupp = ctx.Films.Where(f => f.Nom.ToLower() == "l'armee des douze singes").First();
+        var avisAssoc = ctx.Avis.Where(a => a.Idfilm == filmSupp.Idfilm);
+        foreach (var avi in avisAssoc)
+        {
+            ctx.Remove(avi);
+        }
+        ctx.Films.Remove(filmSupp);
+        ctx.SaveChanges();
     }
 
     private static void modifyMovie()
