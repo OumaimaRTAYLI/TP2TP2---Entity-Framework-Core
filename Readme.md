@@ -1,4 +1,4 @@
 # Authors : 
-	- Oumaima RTAYL
+	- Oumaima RTAYLI
 	- Thomas MARIN 
 
