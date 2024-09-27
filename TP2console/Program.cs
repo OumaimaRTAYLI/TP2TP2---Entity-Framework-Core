@@ -29,11 +29,26 @@ class Program
         //Exo2Q7();
         
         //Afficher la note moyenne du film « Pulp Fiction »
-        Exo2Q8();
+        //Exo2Q8();
         
         //Afficher l’utilisateur qui a mis la meilleure note dans la base
-        Exo2Q9();
+        //Exo2Q9();
+        
+        //Exercie 3
+        //Ajoutez-vous en tant qu’utilisateur
+        AddUser();
 
+    }
+
+    private static void AddUser()
+    {
+        Utilisateur user = new Utilisateur();
+        user.Login = "oumaima";
+        user.Email = "oumaima@gmail.com";
+        user.Pwd = "123456";
+        var ctx = new FilmsDbContext();
+        ctx.Add(user); 
+        ctx.SaveChanges();
     }
 
     private static void Exo2Q9()
