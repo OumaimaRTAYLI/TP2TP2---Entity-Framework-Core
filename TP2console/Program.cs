@@ -20,7 +20,17 @@ class Program
         //Exo2Q4();
         
         //Afficher le nombre de catégories
-        Exo2Q5();
+        //Exo2Q5();
+        
+        //Afficher la note la plus basse dans la base
+        Exo2Q6();
+    }
+
+    private static void Exo2Q6()
+    {
+        var ctx = new FilmsDbContext();
+        var lowestNote = ctx.Avis.OrderBy(a => a.Note).First();
+        Console.WriteLine(lowestNote.Note);
     }
 
     private static void Exo2Q5()
