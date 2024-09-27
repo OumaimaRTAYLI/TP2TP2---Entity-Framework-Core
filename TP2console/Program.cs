@@ -30,7 +30,22 @@ class Program
         
         //Afficher la note moyenne du film « Pulp Fiction »
         Exo2Q8();
+        
+        //Afficher l’utilisateur qui a mis la meilleure note dans la base
+        Exo2Q9();
 
+    }
+
+    private static void Exo2Q9()
+    {
+        var ctx = new FilmsDbContext();
+
+        var maxNote = (from a in ctx.Avis
+            join u in ctx.Utilisateurs
+                on a.Idutilisateur equals u.Idutilisateur
+            select a.Note).Max();
+        
+        Console.WriteLine(maxNote);
     }
 
     private static void Exo2Q8()
