@@ -18,6 +18,17 @@ class Program
             //Modification de l'entité (dans le contexte seulement)
             titanic.Description = "Un bateau a échoué. Date : " + DateTime.Now;
             
+            //Chargement de la catégorie Action
+            Categorie categorieAction = ctx.Categories.First(c => c.Nom == "Action");
+            Console.WriteLine("Categorie : " + categorieAction.Nom);
+            Console.WriteLine("Films : ");
+            //Chargement des films de la catégorie Action.
+            foreach (var film in ctx.Films.Where(f => f.IdcategorieNavigation.Nom ==
+                                                      categorieAction.Nom).ToList())
+            {
+                Console.WriteLine(film.Nom);
+            }
+            
             //Sauvegarde du ctx => Application de la modification dans la BD
             int nbchanges = ctx.SaveChanges();
             

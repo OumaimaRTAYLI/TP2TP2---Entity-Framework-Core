@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace TP2console.Models.EntityFramework;
 
@@ -14,6 +15,9 @@ public partial class FilmsDbContext : DbContext
         : base(options)
     {
     }
+    
+    public static readonly ILoggerFactory MyLoggerFactory = LoggerFactory.Create(builder =>
+        builder.AddConsole());
 
     public virtual DbSet<Avi> Avis { get; set; }
 
@@ -25,7 +29,10 @@ public partial class FilmsDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Server=localhost;port=5432;Database=FilmsDB; uid=postgres;\npassword=root;");
+       //=> optionsBuilder.UseNpgsql("Server=localhost;port=5432;Database=FilmsDB; uid=postgres;\npassword=root;");
+        => optionsBuilder.UseLoggerFactory(MyLoggerFactory)
+            .EnableSensitiveDataLogging()
+            .UseNpgsql("Server=localhost;port=5432;Database=FilmsDB; uid=postgres; password=root;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
